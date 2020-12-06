@@ -1,6 +1,5 @@
 import React, { InputHTMLAttributes } from "react"
 import { useField } from "formik"
-import { type } from "os"
 import {
   FormControl,
   FormLabel,
