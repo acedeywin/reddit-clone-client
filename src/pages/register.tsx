@@ -4,17 +4,26 @@ import WrapperComponent from "../components/Wrapper"
 import InputFieldComponent from "../components/InputFieldComponent"
 import { Box, Button } from "@chakra-ui/react"
 import { useRegisterMutation } from "../generated/graphql"
+import { toErrorMap } from "../utils/toErrorMap"
+import { useRouter } from "next/router"
 
 interface registerProps {}
 
 const RegisterPage: React.FC<registerProps> = ({}) => {
-  const [, register] = useRegisterMutation()
+  const [, register] = useRegisterMutation(),
+    router = useRouter()
+
   return (
     <WrapperComponent variant="small">
       <Formik
         initialValues={{ username: "", password: "" }}
-        onSubmit={async values => {
+        onSubmit={async (values, { setErrors }) => {
           const response = await register(values)
+          if (response.data?.register.errors) {
+            setErrors(toErrorMap(response.data.register.errors))
+          } else if (response.data?.register.user) {
+            router.push("/")
+          }
         }}
       >
         {({ isSubmitting }) => (

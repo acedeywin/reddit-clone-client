@@ -1,3 +1,4 @@
+import React from "react"
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react"
 import { Provider, createClient } from "urql"
 
@@ -10,7 +11,12 @@ const client = createClient({
   },
 })
 
-function MyApp({ Component, pageProps }) {
+interface MyAppProps {
+  Component: any
+  pageProps: any
+}
+
+const MyApp: React.FC<MyAppProps> = ({ Component, pageProps }) => {
   return (
     <Provider value={client}>
       <ChakraProvider resetCSS theme={theme}>
