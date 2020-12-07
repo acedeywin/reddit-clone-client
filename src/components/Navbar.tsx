@@ -8,31 +8,25 @@ interface NavbarProps {}
 const Navbar: React.FC<NavbarProps> = ({}) => {
   const [{ data, fetching }] = useMeQuery()
 
-  let body
+  let body = null
 
   if (fetching) {
     body = null
   } else if (!data?.me) {
     body = (
-      <Flex bg="tomato" color="white" p={4}>
-        <Box>Navbar</Box>
-        <Box ml={"auto"}>
-          <NextLink href="/login">
-            <Link mr={5}>Login</Link>
-          </NextLink>
-          <NextLink href="/register">
-            <Link mr={10}>Register</Link>
-          </NextLink>
-        </Box>
+      <Flex>
+        <NextLink href="/login">
+          <Link mr={5}>Login</Link>
+        </NextLink>
+        <NextLink href="/register">
+          <Link mr={10}>Register</Link>
+        </NextLink>
       </Flex>
     )
   } else {
     body = (
-      <Flex bg="tomato" color="white" p={4}>
-        <Box>Navbar</Box>
-        <Box ml={"auto"} mr={5}>
-          {data.me.username}
-        </Box>
+      <Flex>
+        <Box mr={5}>{data.me.username}</Box>
         <Button variant="link" mr={10}>
           Logout
         </Button>
@@ -43,14 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <Flex bg="tomato" color="white" p={4}>
       <Box>Navbar</Box>
-      <Box ml={"auto"}>
-        <NextLink href="/login">
-          <Link mr={5}>Login</Link>
-        </NextLink>
-        <NextLink href="/register">
-          <Link mr={10}>Register</Link>
-        </NextLink>
-      </Box>
+      <Box ml={"auto"}>{body}</Box>
     </Flex>
   )
 }
