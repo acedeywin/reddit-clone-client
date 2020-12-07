@@ -8,6 +8,13 @@
 // } from "@chakra-ui/react"
 // import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons"
 
-const Index = () => <div>Hello World</div>
+import Navbar from "../components/Navbar"
+
+const Index = () => (
+  <>
+    <Navbar />
+    <div>Hello World</div>
+  </>
+)
 
 export default Index
