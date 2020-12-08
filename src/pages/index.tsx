@@ -1,20 +1,21 @@
-// import {
-//   Link as ChakraLink,
-//   Text,
-//   Code,
-//   List,
-//   ListIcon,
-//   ListItem,
-// } from "@chakra-ui/react"
-// import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons"
-
+import { withUrqlClient } from "next-urql"
 import Navbar from "../components/Navbar"
+import { usePostsQuery } from "../generated/graphql"
+import { createUrqlClient } from "../utils/createUrqlClient"
 
-const Index = () => (
-  <>
-    <Navbar />
-    <div>Hello World</div>
-  </>
-)
+const Index = () => {
+  const [{ data }] = usePostsQuery()
+  return (
+    <>
+      <Navbar />
+      <div>Hello World</div>
+      {!data ? (
+        <div>Loading...</div>
+      ) : (
+        data.posts.map(p => <div key={p.id}>{p.title}</div>)
+      )}
+    </>
+  )
+}
 
-export default Index
+export default withUrqlClient(createUrqlClient, { ssr: true })(Index)
