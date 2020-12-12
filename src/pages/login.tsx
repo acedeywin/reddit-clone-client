@@ -15,7 +15,7 @@ const LoginPage: React.FC<{}> = ({}) => {
     router = useRouter()
 
   return (
-    <WrapperComponent variant="small">
+    <WrapperComponent variant={"small"}>
       <Formik
         initialValues={{ usernameOrEmail: "", password: "" }}
         onSubmit={async (values, { setErrors }) => {
