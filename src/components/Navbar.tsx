@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <Flex zIndex={1} position="sticky" top={0} bg="#1E9935" color="white" p={4}>
       <Box cursor={"pointer"} onClick={() => router.push("/")}>
-        Navbar
+        RedditCLone
       </Box>
       <Box ml={"auto"}>{body}</Box>
     </Flex>
