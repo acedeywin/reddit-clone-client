@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react"
+import React from "react"
 import { useField } from "formik"
 import {
   FormControl,
@@ -7,12 +7,7 @@ import {
   FormErrorMessage,
   Textarea,
 } from "@chakra-ui/react"
-
-type InputFieldComponentProps = InputHTMLAttributes<HTMLInputElement> & {
-  name: string
-  label: string
-  textarea?: boolean
-}
+import { InputFieldComponentProps } from "../types/componentTypes"
 
 // interface ComponentInterface{
 //   C?: InputProps & {C?: TextareaProps}

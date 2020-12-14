@@ -5,9 +5,7 @@ import { useLogoutMutation, useMeQuery } from "../generated/graphql"
 import { isServer } from "../utils/isServer"
 import { useRouter } from "next/router"
 
-interface NavbarProps {}
-
-const Navbar: React.FC<NavbarProps> = ({}) => {
+const Navbar: React.FC<{}> = ({}) => {
   const [{ data, fetching }] = useMeQuery({ pause: isServer() })
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation(),
     router = useRouter()
@@ -39,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   }
 
   return (
-    <Flex zIndex={1} position="sticky" top={0} bg="#1E9935" color="white" p={4}>
+    <Flex zIndex={1} position="sticky" top={0} bg="#319795" color="white" p={4}>
       <Box cursor={"pointer"} onClick={() => router.push("/")}>
         RedditCLone
       </Box>
