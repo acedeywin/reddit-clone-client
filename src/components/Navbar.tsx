@@ -4,6 +4,7 @@ import NextLink from "next/link"
 import { useLogoutMutation, useMeQuery } from "../generated/graphql"
 import { isServer } from "../utils/isServer"
 import { useRouter } from "next/router"
+import { capitalizeFirstLetter } from "../utils/betterUpdateQuery"
 
 const Navbar: React.FC<{}> = ({}) => {
   const [{ data, fetching }] = useMeQuery({ pause: isServer() })
@@ -35,7 +36,7 @@ const Navbar: React.FC<{}> = ({}) => {
         </NextLink>
         <Box mr={5}>
           {" "}
-          Welcome back &nbsp; {data.me.username.toLocaleUpperCase()}
+          Welcome back &nbsp; {capitalizeFirstLetter(data.me.username)}
         </Box>
         <Link onClick={() => logout()} isLoading={logoutFetching} mr={10}>
           Logout

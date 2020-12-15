@@ -1,21 +1,14 @@
-import { Heading, Stack, Text } from "@chakra-ui/react"
+import { Box, Heading, Stack, Text } from "@chakra-ui/react"
 import { withUrqlClient } from "next-urql"
-import { useRouter } from "next/router"
 import React from "react"
+import EditDeleteButtons from "../../components/EditDeleteButtons"
 import Layout from "../../components/Layout"
-import { usePostQuery } from "../../generated/graphql"
-import { createUrqlClient } from "../../utils/createUrqlClient"
 
-const Post = ({}) => {
-  const router = useRouter(),
-    intId =
-      typeof router.query.id === "string" ? parseInt(router.query.id) : -1,
-    [{ data, fetching }] = usePostQuery({
-      pause: intId === -1,
-      variables: {
-        id: intId,
-      },
-    })
+import { createUrqlClient } from "../../utils/createUrqlClient"
+import { useGetPostFromUrl } from "../../utils/useGetPostFromUrl"
+
+const ViewPost = ({}) => {
+  const [{ data, error, fetching }] = useGetPostFromUrl()
 
   switch (true) {
     case fetching:
@@ -24,6 +17,8 @@ const Post = ({}) => {
           <div>Loading...</div>
         </Layout>
       )
+    case error as any:
+      return <div>{error?.message}</div>
     case !data?.post:
       return (
         <Layout>
@@ -36,12 +31,18 @@ const Post = ({}) => {
       return (
         <Layout>
           <Stack spacing={3} p={5} shadow="md">
-            <Heading>{data?.post?.title}</Heading>
+            <Box>
+              <Heading>{data?.post?.title}</Heading>
+            </Box>
             <Text>{data?.post?.text}</Text>
+            <EditDeleteButtons
+              id={data?.post?.id}
+              creatorId={data?.post?.creator.id}
+            />
           </Stack>
         </Layout>
       )
   }
 }
 
-export default withUrqlClient(createUrqlClient, { ssr: true })(Post)
+export default withUrqlClient(createUrqlClient, { ssr: true })(ViewPost)

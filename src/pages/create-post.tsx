@@ -43,14 +43,17 @@ const CreatePost: React.FC<{}> = ({}) => {
               />
             </Box>
 
-            <Button
-              mt={4}
-              type="submit"
-              colorScheme="teal"
-              isLoading={isSubmitting}
-            >
-              Create Post
-            </Button>
+            <Box color="#ffffff">
+              <Button
+                mt={4}
+                mr={4}
+                type="submit"
+                backgroundColor="#319795"
+                isLoading={isSubmitting}
+              >
+                Create Post
+              </Button>
+            </Box>
           </Form>
         )}
       </Formik>

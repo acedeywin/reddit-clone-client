@@ -1,32 +1,24 @@
 import { withUrqlClient } from "next-urql"
-import { DeleteIcon } from "@chakra-ui/icons"
-import {
-  Link,
-  Stack,
-  Heading,
-  Box,
-  Text,
-  Flex,
-  Button,
-  IconButton,
-} from "@chakra-ui/react"
+
+import { Link, Stack, Heading, Box, Text, Flex, Button } from "@chakra-ui/react"
 import Layout from "../components/Layout"
-import { useDeletePostMutation, usePostsQuery } from "../generated/graphql"
+import { usePostsQuery } from "../generated/graphql"
 import { createUrqlClient } from "../utils/createUrqlClient"
 import NextLink from "next/link"
 import React, { useState } from "react"
 import { Vote } from "../components/Vote"
-import { toErrorMap } from "../utils/toErrorMap"
+import {
+  capitalizeFirstLetter,
+  convertToRealDate,
+} from "../utils/betterUpdateQuery"
+import EditDeleteButtons from "../components/EditDeleteButtons"
 
 const Index = () => {
   const [variables, setVariables] = useState({
       limit: 30,
       cursor: null as null | string,
     }),
-    [{ data, fetching }] = usePostsQuery({
-      variables,
-    }),
-    [, deletePost] = useDeletePostMutation()
+    [{ data, fetching }] = usePostsQuery({ variables })
 
   if (!fetching && !data) {
     return (
@@ -52,19 +44,15 @@ const Index = () => {
                       <Heading fontSize="xl">{p.title}</Heading>
                     </Link>
                   </NextLink>
-                  <Text>posted by {p.creator.username}</Text>
+                  <Text color="#319795">
+                    Posted by {capitalizeFirstLetter(p.creator.username)} &nbsp;
+                    {convertToRealDate(p.createdAt)}
+                  </Text>
                   <Flex>
                     <Text flex={1} mt={4}>
                       {p.textSnippet}
                     </Text>
-                    <IconButton
-                      onClick={() => {
-                        deletePost({ id: p.id })
-                      }}
-                      aria-label="Delete Post"
-                      size="sm"
-                      icon={<DeleteIcon color="#e41111" />}
-                    />
+                    <EditDeleteButtons id={p.id} creatorId={p.creator.id} />
                   </Flex>
                 </Box>
               </Flex>
