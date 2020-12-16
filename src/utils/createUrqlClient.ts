@@ -80,6 +80,16 @@ const cursorPagination = (): Resolver => {
   }
 }
 
+export const invalidateAllPosts = (cache: any) => {
+  const allFields = cache.inspectFields("Query"),
+    fieldInfos = allFields.filter(
+      (info: { fieldName: string }) => info.fieldName === "posts"
+    )
+  fieldInfos.forEach((field: { arguments: any }) => {
+    cache.invalidate("Query", "posts", field.arguments || {})
+  })
+}
+
 export const createUrqlClient = (ssrExchange: any, ctx: any) => {
   let cookie = ""
   if (isServer()) {
@@ -146,13 +156,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
               }
             },
             createPost: (_result, args, cache, info) => {
-              const allFields = cache.inspectFields("Query"),
-                fieldInfos = allFields.filter(
-                  info => info.fieldName === "posts"
-                )
-              fieldInfos.forEach(field => {
-                cache.invalidate("Query", "posts", field.arguments || {})
-              })
+              invalidateAllPosts(cache)
             },
 
             logout: (_result, args, cache, info) => {
@@ -178,6 +182,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
                   }
                 }
               )
+              invalidateAllPosts(cache)
             },
             register: (_result, args, cache, info) => {
               betterUpdateQuery<RegisterMutation, MeQuery>(
