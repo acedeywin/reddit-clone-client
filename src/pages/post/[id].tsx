@@ -3,6 +3,10 @@ import { withUrqlClient } from "next-urql"
 import React from "react"
 import EditDeleteButtons from "../../components/EditDeleteButtons"
 import Layout from "../../components/Layout"
+import {
+  capitalizeFirstLetter,
+  convertToRealDate,
+} from "../../utils/betterUpdateQuery"
 
 import { createUrqlClient } from "../../utils/createUrqlClient"
 import { useGetPostFromUrl } from "../../utils/useGetPostFromUrl"
@@ -33,6 +37,11 @@ const ViewPost = ({}) => {
           <Stack spacing={3} p={5} shadow="md">
             <Box>
               <Heading>{data?.post?.title}</Heading>
+              <Text color="#319795">
+                Posted by &nbsp;
+                {capitalizeFirstLetter(data?.post?.creator.username as any)}
+                &nbsp; {convertToRealDate(data?.post?.createdAt as any)}
+              </Text>
             </Box>
             <Text>{data?.post?.text}</Text>
             <EditDeleteButtons
