@@ -99,9 +99,9 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
   return {
     url: process.env.NEXT_PUBLIC_API_URL as string,
     fetchOptions: {
-      mode: "no-cors",
-      credentials: "include" as const,
-      method: "POST",
+      mode: "no-cors" as any,
+      credentials: "include" as any,
+      method: "POST" as any,
       headers: cookie
         ? {
             cookie,
