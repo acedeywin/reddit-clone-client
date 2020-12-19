@@ -1,23 +1,23 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui)
+# About RedditClone App
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app.
+RedditClone app allows authenticated users to add, edit, vote, and delete posts.
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Theme and ColorMode containers so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
+The project was build with NextJs, Chakra-UI, Urql client, TypeOrm on the frontend, and Node, Postgresql, Redis, GraphQL on the backend.
 
-## Deploy your own
+Image of the Docker build can be found here: https://hub.docker.com/repository/docker/acedeywin/redditclone
 
-Deploy the example using [Vercel](https://vercel.com):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui)
+Also, the code was written mainly using TypeScript.
 
 ## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+Clone https://github.com/acedeywin/reddit-clone-client in a dedicated folder and run yarn install
 
-```bash
-npx create-next-app --example with-chakra-ui with-chakra-ui-app
-# or
-yarn create next-app --example with-chakra-ui with-chakra-ui-app
-```
+Clone https://github.com/acedeywin/reddit-clone-server in a dedicated folder and run yarn install
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Setup your Postgres server
+
+Setup your Redis server
+
+Setup your .env environment
+
+Run yarn dev on both the client and the server folders
