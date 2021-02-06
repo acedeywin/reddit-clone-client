@@ -33,7 +33,7 @@ const ChangePassword: NextPage = () => {
             }
             setErrors(errorMap)
           } else if (response.data?.changePassword.user) {
-            router.push("/")
+            router.push("/home")
           }
         }}
       >

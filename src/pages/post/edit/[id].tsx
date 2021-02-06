@@ -72,7 +72,7 @@ const EditPost = ({}) => {
                     Update Post
                   </Button>
                   <Button
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/home")}
                     mt={4}
                     type="submit"
                     backgroundColor="#e41111"
