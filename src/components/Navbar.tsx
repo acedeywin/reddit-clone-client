@@ -55,7 +55,7 @@ const Navbar: React.FC<{}> = ({}) => {
       p={4}
       align="center"
     >
-      <Heading cursor={"pointer"} onClick={() => router.push("/home")}>
+      <Heading cursor={"pointer"} onClick={() => router.push("/")}>
         RedditCLone
       </Heading>
       <Box ml={"auto"}>{body}</Box>
